@@ -12,12 +12,14 @@ import {
 } from "@/components/ui/dialog";
 import { Button } from "../ui/button";
 import { useUser } from "@clerk/clerk-react";
+import { useNavigate } from "react-router-dom";
 
 function AddResume() {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [resumeTitle, setResumeTitle] = useState();
   const [loading, setLoading] = useState(false);
   const { user } = useUser();
+  const Navigate = useNavigate();
 
   const onCreate = () => {
     setLoading(true);
