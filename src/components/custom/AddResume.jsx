@@ -19,7 +19,7 @@ function AddResume() {
   const [resumeTitle, setResumeTitle] = useState();
   const [loading, setLoading] = useState(false);
   const { user } = useUser();
-  const Navigate = useNavigate();
+  const navigateTo = useNavigate();
 
   const onCreate = () => {
     setLoading(true);
@@ -35,11 +35,12 @@ function AddResume() {
 
     GlobalApi.CreateNewResume(data).then(
       (response) => {
-        console.log(response);
-        setLoading(false);
+        if (response) {
+          setLoading(false);
+          navigateTo("/dashboard/resume/" + uuid + "/edit");
+        }
       },
       (error) => {
-        console.log(error);
         setLoading(false);
       },
     );
@@ -49,7 +50,7 @@ function AddResume() {
     <div>
       <div
         onClick={() => setIsDialogOpen(true)}
-        className="hover:sca flex h-[280px] cursor-pointer items-center justify-center rounded-lg border border-dashed bg-secondary p-10 transition-all hover:shadow-md"
+        className="flex h-[280px] cursor-pointer items-center justify-center rounded-lg border border-dashed bg-secondary p-10 transition-all hover:scale-105 hover:shadow-md"
       >
         <PlusSquare />
       </div>

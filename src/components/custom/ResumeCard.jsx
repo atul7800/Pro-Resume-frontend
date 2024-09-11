@@ -1,11 +1,15 @@
+import { NotebookIcon } from "lucide-react";
 import React from "react";
+import { Link } from "react-router-dom";
 
-function ResumeCard({ resumeTitle, index }) {
+function ResumeCard({ resume, index }) {
+  console.log(resume);
   return (
-    <div>
-      <p>{resumeTitle}</p>
-      <p>{index}</p>
-    </div>
+    <Link to={"/dashboard/resume/" + resume.resumeId + "/edit"}>
+      <div className="flex h-[280px] cursor-pointer items-center justify-center rounded-lg border border-primary bg-secondary p-14 shadow-primary transition-all hover:scale-105 hover:shadow-md">
+        <p>{resume.resumeTitle}</p>
+      </div>
+    </Link>
   );
 }
 
