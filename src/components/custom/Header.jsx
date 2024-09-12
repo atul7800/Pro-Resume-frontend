@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { UserButton, useUser } from "@clerk/clerk-react";
 
 function Header() {
-  const { user, isSignedIn } = useUser();
+  const { isSignedIn } = useUser();
 
   return (
     <div className="flex items-center justify-between px-5 py-3 shadow-md">
