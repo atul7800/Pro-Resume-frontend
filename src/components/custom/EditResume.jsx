@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import FormSection from "./FormSection";
-import FormPreview from "./FormPreview";
 import dummy from "@/data/dummy";
 import { ResumeInfoContext } from "@/service/ResumeInfoContext";
+import ResumeBuildSection from "./ResumeBuildSection";
+import ResumePreviewSection from "./ResumePreviewSection";
 
 function EditResume() {
   const params = useParams();
@@ -18,9 +18,9 @@ function EditResume() {
     <ResumeInfoContext.Provider value={{ resumeInfo, setResumeInfo }}>
       <div className="grid grid-cols-1 gap-10 p-10 md:grid-cols-2">
         {/* From Build Section */}
-        <FormSection />
+        <ResumeBuildSection />
         {/* Form Preview */}
-        <FormPreview />
+        <ResumePreviewSection />
       </div>
     </ResumeInfoContext.Provider>
   );
