@@ -1,10 +1,10 @@
 import { ResumeInfoContext } from "@/service/ResumeInfoContext";
 import React, { useContext } from "react";
-import PersonalDetailsPreview from "./preview/PersonalDetailsPreview";
-import SummaryPreview from "./preview/SummaryPreview";
-import ExperiencePreview from "./preview/ExperiencePreview";
-import EducationPreview from "./preview/EducationPreview";
-import SkillsPreview from "./preview/SkillsPreview";
+import PersonalDetailsPreview from "./resume_preview/PersonalDetailsPreview";
+import SummaryPreview from "./resume_preview/SummaryPreview";
+import ExperiencePreview from "./resume_preview/ExperiencePreview";
+import EducationPreview from "./resume_preview/EducationPreview";
+import SkillsPreview from "./resume_preview/SkillsPreview";
 
 function ResumePreviewSection() {
   const { resumeInfo, setResumeInfo } = useContext(ResumeInfoContext);
