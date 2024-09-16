@@ -13,7 +13,7 @@ function SkillsPreview({ resumeInfo }) {
         className="mt-1 border-[1px]"
         style={{ borderColor: resumeInfo?.themeColor }}
       />
-      <div className="grid grid-cols-2 gap-x-8 gap-y-2 md:grid-cols-3">
+      <div className="mt-2 grid grid-cols-1 gap-x-8 gap-y-2 md:grid-cols-2">
         {resumeInfo?.skills.map((skill, rating) => (
           <div className="flex items-center gap-3">
             <h2 className="text-sm">

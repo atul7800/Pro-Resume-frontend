@@ -3,10 +3,11 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 function ResumeCard({ resume, index }) {
+  //console.log(resume);
   return (
-    <Link to={"/dashboard/resume/" + resume.resumeId + "/edit"}>
+    <Link to={"/dashboard/resume/" + resume.id + "/edit"}>
       <div className="flex h-[280px] cursor-pointer items-center justify-center rounded-lg border border-primary bg-secondary p-14 shadow-primary transition-all hover:scale-105 hover:shadow-md">
-        <p>{resume.resumeTitle}</p>
+        <p>{resume.attributes.resumeTitle}</p>
       </div>
     </Link>
   );

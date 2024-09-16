@@ -15,9 +15,10 @@ function Dashboard() {
   const GetUserResumeList = () => {
     GlobalApi.GetUserResumes(user?.primaryEmailAddress?.emailAddress).then(
       (response) => {
-        setResumeList(
-          response.data.data.map((eachResume) => eachResume.attributes),
-        );
+        // setResumeList(
+        //   response.data.data.map((eachResume) => eachResume.attributes),
+        // );
+        setResumeList(response.data.data);
       },
       (error) => {
         console.log(error);
