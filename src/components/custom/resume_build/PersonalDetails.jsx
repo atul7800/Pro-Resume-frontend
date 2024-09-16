@@ -1,26 +1,48 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import GlobalApi from "@/service/GlobalApi";
 import { ResumeInfoContext } from "@/service/ResumeInfoContext";
 import React, { useContext, useState } from "react";
-import { useEffect } from "react";
 import { Form, useParams } from "react-router-dom";
 
 function PersonalDetails({ enableNext }) {
   // context to save the data
   const { resumeInfo, setResumeInfo } = useContext(ResumeInfoContext);
   const params = useParams();
+  const [formData, setFormData] = useState();
 
   const onSave = (e) => {
     e.preventDefault();
     enableNext(true);
+
+    // updating on strapi backend
+    const data = {
+      data: formData,
+    };
+
+    GlobalApi.UpdateResumeDetails(params?.resumeId, data).then(
+      (response) => {
+        console.log(response);
+      },
+      (error) => {
+        console.log(error);
+      },
+    );
   };
 
   const handleInputChange = (e) => {
     enableNext(false);
     const { name, value } = e.target;
 
+    // for local (context API)
     setResumeInfo({
       ...resumeInfo,
+      [name]: value,
+    });
+
+    // for strapi backend
+    setFormData({
+      ...formData,
       [name]: value,
     });
   };
