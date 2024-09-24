@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import PersonalDetails from "./resume_build/PersonalDetails";
 import { LayoutGrid, LucideMoveLeft, LucideMoveRight } from "lucide-react";
 import { Button } from "../ui/button";
+import Summary from "./resume_build/Summary";
 
 function ResumeBuildSection() {
   const [activeFormIndex, setActiveFormIndex] = useState(1);
@@ -34,8 +35,25 @@ function ResumeBuildSection() {
           </Button>
         </div>
       </div>
-      {/* Personal details */}
-      <PersonalDetails enableNext={(value) => setIsNextEnabled(value)} />
+      {activeFormIndex == 1 ? (
+        <PersonalDetails
+          enableNext={(value) => setIsNextEnabled(value)}
+          isNextEnabled={isNextEnabled}
+        />
+      ) : activeFormIndex == 2 ? (
+        <Summary
+          enableNext={(value) => setIsNextEnabled(value)}
+          isNextEnabled={isNextEnabled}
+        />
+      ) : null}
+
+      {/* {activeFormIndex == 1 ? (
+        <Summary
+          enableNext={(value) => setIsNextEnabled(value)}
+          isNextEnabled={isNextEnabled}
+        />
+      ) : null} */}
+
       {/* Summary */}
       {/* Professional experience */}
       {/* Educational details */}

@@ -14,8 +14,8 @@ function SkillsPreview({ resumeInfo }) {
         style={{ borderColor: resumeInfo?.themeColor }}
       />
       <div className="mt-2 grid grid-cols-1 gap-x-8 gap-y-2 md:grid-cols-2">
-        {resumeInfo?.skills.map((skill, rating) => (
-          <div className="flex items-center gap-3">
+        {resumeInfo?.skills.map((skill, index) => (
+          <div key={index} className="flex items-center gap-3">
             <h2 className="text-sm">
               <span style={{ whiteSpace: "nowrap" }}>{skill?.name}</span>
             </h2>

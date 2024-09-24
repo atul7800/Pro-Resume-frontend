@@ -14,7 +14,7 @@ import { Button } from "../ui/button";
 import { useUser } from "@clerk/clerk-react";
 import { useNavigate } from "react-router-dom";
 
-function AddResume() {
+function AddResume({ resumeList }) {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [resumeTitle, setResumeTitle] = useState();
   const [loading, setLoading] = useState(false);
@@ -37,7 +37,7 @@ function AddResume() {
       (response) => {
         if (response) {
           setLoading(false);
-          navigateTo("/dashboard/resume/" + uuid + "/edit");
+          navigateTo("/dashboard/resume/" + response.data.data.id + "/edit");
         }
       },
       (error) => {
