@@ -58,7 +58,7 @@ function PersonalDetails({ enableNext, isNextEnabled }) {
         <h2 className="text-xl font-bold">Personal Details</h2>
 
         <Form onSubmit={onSave}>
-          <div className="mt-4 grid grid-cols-2 gap-4">
+          <div className="mt-4 grid grid-cols-2 gap-4 rounded-md border p-5">
             <div>
               <label className="text-sm">First Name</label>
               <Input
