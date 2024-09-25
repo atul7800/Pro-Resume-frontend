@@ -4,11 +4,16 @@ import { ResumeInfoContext } from "@/service/ResumeInfoContext";
 import React, { useContext, useEffect, useState } from "react";
 import { Form, useParams } from "react-router-dom";
 import GlobalApi from "@/service/GlobalApi";
+import { Brain, LoaderPinwheel } from "lucide-react";
+import { geminiChatSession } from "@/service/Gemini";
 
 function Summary({ enableNext, isNextEnabled }) {
   const { resumeInfo, setResumeInfo } = useContext(ResumeInfoContext);
   const [summary, setSummary] = useState("");
   const params = useParams();
+  const [isLoading, setIsLoading] = useState(false);
+  const prompt =
+    "Job Title: {jobTitle}, based on the job title generate a generic summary for my resume in 4-5 lines.";
 
   useEffect(() => {
     summary &&
@@ -18,9 +23,17 @@ function Summary({ enableNext, isNextEnabled }) {
       });
   }, [summary]);
 
+  const GenerateSummaryUsingAI = async () => {
+    const PROMPT = prompt.replace("{jobTitle}", resumeInfo?.jobTitle);
+    console.log("PROMPT = " + PROMPT);
+    const result = await geminiChatSession.sendMessage(PROMPT);
+    console.log(result.response.text());
+  };
+
   const onSave = (e) => {
     e.preventDefault();
-    enableNext(true);
+    setIsLoading(true);
+    console.log(Date.now());
 
     // updating on strapi backend
     const data = {
@@ -32,9 +45,12 @@ function Summary({ enableNext, isNextEnabled }) {
     GlobalApi.UpdateResumeDetails(params?.resumeId, data).then(
       (response) => {
         console.log(response);
+        enableNext(true);
+        setIsLoading(false);
       },
       (error) => {
         console.log(error);
+        setIsLoading(false);
       },
     );
   };
@@ -47,10 +63,13 @@ function Summary({ enableNext, isNextEnabled }) {
           <div className="flex items-end justify-between">
             <label>Add summary</label>
             <Button
+              onClick={() => GenerateSummaryUsingAI()}
+              type="button"
               variant="outline"
               size="sm"
-              className="border-primary text-primary"
+              className="flex items-center justify-between gap-2 border-primary text-primary"
             >
+              <Brain className="h-[20px] w-[20px]" />
               Generate with AI
             </Button>
           </div>
@@ -63,8 +82,12 @@ function Summary({ enableNext, isNextEnabled }) {
           />
 
           <div className="flex items-center justify-end">
-            <Button disabled={isNextEnabled} type="submit" className="mt-4">
-              Save
+            <Button
+              disabled={isNextEnabled || isLoading}
+              type="submit"
+              className="mt-4"
+            >
+              {isLoading ? <LoaderPinwheel className="animate-spin" /> : "Save"}
             </Button>
           </div>
         </Form>

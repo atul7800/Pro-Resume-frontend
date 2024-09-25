@@ -2,6 +2,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import GlobalApi from "@/service/GlobalApi";
 import { ResumeInfoContext } from "@/service/ResumeInfoContext";
+import { LoaderPinwheel } from "lucide-react";
 import React, { useContext, useEffect, useState } from "react";
 import { Form, useParams } from "react-router-dom";
 
@@ -10,10 +11,11 @@ function PersonalDetails({ enableNext, isNextEnabled }) {
   const { resumeInfo, setResumeInfo } = useContext(ResumeInfoContext);
   const params = useParams();
   const [formData, setFormData] = useState();
+  const [isLoading, setIsLoading] = useState(false);
 
   const onSave = (e) => {
     e.preventDefault();
-    enableNext(true);
+    setIsLoading(true);
 
     // updating on strapi backend
     const data = {
@@ -23,9 +25,12 @@ function PersonalDetails({ enableNext, isNextEnabled }) {
     GlobalApi.UpdateResumeDetails(params?.resumeId, data).then(
       (response) => {
         console.log(response);
+        enableNext(true);
+        setIsLoading(false);
       },
       (error) => {
         console.log(error);
+        setIsLoading(false);
       },
     );
   };
@@ -111,11 +116,11 @@ function PersonalDetails({ enableNext, isNextEnabled }) {
           </div>
           <div className="mt-5 flex items-center justify-end">
             <Button
-              disabled={isNextEnabled}
+              disabled={isNextEnabled || isLoading}
               onChange={handleInputChange}
               type="submit"
             >
-              Save
+              {isLoading ? <LoaderPinwheel className="animate-spin" /> : "Save"}
             </Button>
           </div>
         </Form>

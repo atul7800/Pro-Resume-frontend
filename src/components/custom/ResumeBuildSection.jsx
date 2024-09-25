@@ -3,6 +3,7 @@ import PersonalDetails from "./resume_build/PersonalDetails";
 import { LayoutGrid, LucideMoveLeft, LucideMoveRight } from "lucide-react";
 import { Button } from "../ui/button";
 import Summary from "./resume_build/Summary";
+import Experience from "./resume_build/Experience";
 
 function ResumeBuildSection() {
   const [activeFormIndex, setActiveFormIndex] = useState(1);
@@ -27,7 +28,10 @@ function ResumeBuildSection() {
 
           <Button
             disabled={!isNextEnabled}
-            onClick={() => setActiveFormIndex(activeFormIndex + 1)}
+            onClick={() => {
+              setActiveFormIndex(activeFormIndex + 1);
+              setIsNextEnabled(false);
+            }}
             className="flex gap-2"
             size="sm"
           >
@@ -42,6 +46,11 @@ function ResumeBuildSection() {
         />
       ) : activeFormIndex == 2 ? (
         <Summary
+          enableNext={(value) => setIsNextEnabled(value)}
+          isNextEnabled={isNextEnabled}
+        />
+      ) : activeFormIndex == 3 ? (
+        <Experience
           enableNext={(value) => setIsNextEnabled(value)}
           isNextEnabled={isNextEnabled}
         />
