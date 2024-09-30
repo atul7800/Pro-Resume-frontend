@@ -4,6 +4,7 @@ import { LayoutGrid, LucideMoveLeft, LucideMoveRight } from "lucide-react";
 import { Button } from "../ui/button";
 import Summary from "./resume_build/Summary";
 import Experience from "./resume_build/Experience";
+import Abcd from "./resume_build/Abcd";
 
 function ResumeBuildSection() {
   const [activeFormIndex, setActiveFormIndex] = useState(1);
@@ -17,9 +18,14 @@ function ResumeBuildSection() {
         <div className="flex items-center justify-between gap-2">
           {activeFormIndex > 1 ? (
             <Button
-              onClick={() =>
-                activeFormIndex && setActiveFormIndex(activeFormIndex - 1)
-              }
+              onClick={() => {
+                if (activeFormIndex) {
+                  if (activeFormIndex) {
+                    setActiveFormIndex(activeFormIndex - 1);
+                    setIsNextEnabled(true);
+                  }
+                }
+              }}
               size="sm"
             >
               <LucideMoveLeft />
@@ -51,6 +57,11 @@ function ResumeBuildSection() {
         />
       ) : activeFormIndex == 3 ? (
         <Experience
+          enableNext={(value) => setIsNextEnabled(value)}
+          isNextEnabled={isNextEnabled}
+        />
+      ) : activeFormIndex == 4 ? (
+        <Abcd
           enableNext={(value) => setIsNextEnabled(value)}
           isNextEnabled={isNextEnabled}
         />
