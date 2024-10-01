@@ -61,7 +61,7 @@ function Summary({ enableNext, isNextEnabled }) {
         <h2 className="text-xl font-bold">Summary</h2>
         <Form onSubmit={onSave} className="mt-4">
           <div className="flex items-end justify-between">
-            <label>Add summary</label>
+            <label className="text-sm">Add summary</label>
             <Button
               onClick={() => GenerateSummaryUsingAI()}
               type="button"
