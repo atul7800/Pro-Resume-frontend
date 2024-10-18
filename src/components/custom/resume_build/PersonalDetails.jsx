@@ -24,7 +24,6 @@ function PersonalDetails({ enableNext, isNextEnabled }) {
 
     GlobalApi.UpdateResumeDetails(params?.resumeId, data).then(
       (response) => {
-        console.log(response);
         enableNext(true);
         setIsLoading(false);
       },

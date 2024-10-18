@@ -45,7 +45,7 @@ function ResumeBuildSection() {
           </Button>
         </div>
       </div>
-      {activeFormIndex == -1 ? (
+      {activeFormIndex == 1 ? (
         <PersonalDetails
           enableNext={(value) => setIsNextEnabled(value)}
           isNextEnabled={isNextEnabled}
@@ -55,7 +55,7 @@ function ResumeBuildSection() {
           enableNext={(value) => setIsNextEnabled(value)}
           isNextEnabled={isNextEnabled}
         />
-      ) : activeFormIndex == 1 ? (
+      ) : activeFormIndex == 3 ? (
         <Experience
           enableNext={(value) => setIsNextEnabled(value)}
           isNextEnabled={isNextEnabled}

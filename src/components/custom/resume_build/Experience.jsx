@@ -1,16 +1,17 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { LoaderPinwheel } from "lucide-react";
+import { Brain, LoaderPinwheel } from "lucide-react";
 import React, { useContext, useEffect, useState } from "react";
-import { Form } from "react-router-dom";
+import { Form, useParams } from "react-router-dom";
 import RichTextEditor from "../reusable/RichTextEditor";
+import GlobalApi from "@/service/GlobalApi";
 import { ResumeInfoContext } from "@/service/ResumeInfoContext";
+import { GenerateSummaryUsingAI } from "../../../service/CommonFunctions";
 
 function Experience({ enableNext, isNextEnabled }) {
-  //const [isLoading, setIsLoading] = useState(false);
-
+  const [isLoading, setIsLoading] = useState(false);
+  const params = useParams();
   const { resumeInfo, setResumeInfo } = useContext(ResumeInfoContext);
-
   const formField = {
     title: "",
     companyName: "",
@@ -23,11 +24,16 @@ function Experience({ enableNext, isNextEnabled }) {
 
   const [experienceList, setExperienceList] = useState([formField]);
 
-  const handleRichTextChange = (index, e) => {
+  useEffect(() => {
+    experienceList &&
+      setResumeInfo({ ...resumeInfo, ["experiences"]: experienceList });
+  }, [experienceList]);
+
+  const handleRichTextChange = (index, nameAndValue) => {
     enableNext(false);
 
     const newEntry = [...experienceList];
-    const { name, value } = e.target;
+    const { name, value } = nameAndValue;
     newEntry[index][name] = value;
     setExperienceList(newEntry);
   };
@@ -35,21 +41,55 @@ function Experience({ enableNext, isNextEnabled }) {
   const handleInputChange = (index, e) => {
     enableNext(false);
 
+    let { name, value } = e.target;
+
+    if (name === "startDate" || name === "endDate") {
+      const [year, month, day] = value.split("-");
+      const formattedDate = `${day}-${month}-${year}`;
+      value = formattedDate;
+    }
+
+    // Why can’t we directly work on experienceList?
+    /* In React, state should be treated as immutable, meaning that it should not be modified    directly. Directly mutating the state (like experienceList) can lead to subtle bugs, such as React not re-rendering the component because it doesn't detect that the state has changed.
+    If you were to directly modify experienceList, React would not recognize the changes since the reference to the array itself hasn't changed. React relies on changes to references of state objects to trigger a re-render. This is why you create a new copy, make changes to the copy, and then update the state with this new array. */
     const newEntry = [...experienceList];
-    const { name, value } = e.target;
     newEntry[index][name] = value;
     setExperienceList(newEntry);
   };
 
-  useEffect(() => {
-    experienceList &&
-      setResumeInfo({ ...resumeInfo, ["experiences"]: experienceList });
-    console.log(resumeInfo);
-  }, [experienceList]);
-
-  const onSave = (e) => {
+  const onSave = async (e) => {
     e.preventDefault();
-    enableNext(true);
+    setIsLoading(true);
+
+    const data = {
+      data: experienceList,
+    };
+
+    //Update on strapi
+    // try {
+    //   const result = await GlobalApi.UpdateResumeDetails(
+    //     params?.resumeId,
+    //     formData,
+    //   );
+    //   console.log(result);
+    //   enableNext(true);
+    // } catch (error) {
+    //   console.log(error);
+    // } finally {
+    //   setIsLoading(false);
+    // }
+
+    GlobalApi.UpdateResumeDetails(params?.resumeId, data).then(
+      (response) => {
+        console.log(response);
+        enableNext(true);
+        setIsLoading(false);
+      },
+      (error) => {
+        console.log(error);
+        setIsLoading(false);
+      },
+    );
   };
 
   const addMoreExperience = () => {
@@ -137,8 +177,8 @@ function Experience({ enableNext, isNextEnabled }) {
               </div>
 
               <div className="col-span-2">
-                <label className="text-sm">Work Summary</label>
                 <RichTextEditor
+                  index={index}
                   handleInput={(e) => handleRichTextChange(index, e)}
                 />
               </div>
@@ -165,9 +205,9 @@ function Experience({ enableNext, isNextEnabled }) {
               </Button>
             </div>
 
-            <Button disabled={isNextEnabled} type="submit">
-              Save
-              {/* {isLoading ? <LoaderPinwheel className="animate-spin" /> : "Save"} */}
+            <Button disabled={isNextEnabled || isLoading} type="submit">
+              {/* Save */}
+              {isLoading ? <LoaderPinwheel className="animate-spin" /> : "Save"}
             </Button>
           </div>
         </Form>

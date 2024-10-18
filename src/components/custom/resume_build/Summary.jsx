@@ -12,8 +12,7 @@ function Summary({ enableNext, isNextEnabled }) {
   const [summary, setSummary] = useState("");
   const params = useParams();
   const [isLoading, setIsLoading] = useState(false);
-  const prompt =
-    "Job Title: {jobTitle}, based on the job title generate a generic summary for my resume in 4-5 lines.";
+  const prompt = "Job Title: {jobTitle}, Give only 1 answer not multiple.";
 
   useEffect(() => {
     summary &&
@@ -25,15 +24,12 @@ function Summary({ enableNext, isNextEnabled }) {
 
   const GenerateSummaryUsingAI = async () => {
     const PROMPT = prompt.replace("{jobTitle}", resumeInfo?.jobTitle);
-    console.log("PROMPT = " + PROMPT);
     const result = await geminiChatSession.sendMessage(PROMPT);
-    console.log(result.response.text());
   };
 
   const onSave = (e) => {
     e.preventDefault();
     setIsLoading(true);
-    console.log(Date.now());
 
     // updating on strapi backend
     const data = {
@@ -44,7 +40,6 @@ function Summary({ enableNext, isNextEnabled }) {
 
     GlobalApi.UpdateResumeDetails(params?.resumeId, data).then(
       (response) => {
-        console.log(response);
         enableNext(true);
         setIsLoading(false);
       },

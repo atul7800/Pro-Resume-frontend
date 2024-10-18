@@ -1,0 +1,9 @@
+.experience-details .experience-preview ul {
+  list-style-type: disc;
+  padding-left: 1.5em;
+}
+
+.experience-details .experience-preview ol {
+  list-style-type: decimal;
+  padding-left: 1.5em;
+}
