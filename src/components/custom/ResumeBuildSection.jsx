@@ -5,6 +5,7 @@ import { Button } from "../ui/button";
 import Summary from "./resume_build/Summary";
 import Experience from "./resume_build/Experience";
 import Abcd from "./resume_build/Abcd";
+import Education from "./resume_build/Education";
 
 function ResumeBuildSection() {
   const [activeFormIndex, setActiveFormIndex] = useState(1);
@@ -61,7 +62,7 @@ function ResumeBuildSection() {
           isNextEnabled={isNextEnabled}
         />
       ) : activeFormIndex == 4 ? (
-        <Abcd
+        <Education
           enableNext={(value) => setIsNextEnabled(value)}
           isNextEnabled={isNextEnabled}
         />

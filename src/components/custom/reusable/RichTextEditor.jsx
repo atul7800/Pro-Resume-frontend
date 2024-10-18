@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { GenerateSummaryUsingAI } from "../../../service/CommonFunctions";
 import { ResumeInfoContext } from "@/service/ResumeInfoContext";
 
-import { Brain, LoaderCircle, LoaderPinwheel } from "lucide-react";
+import { Brain, Loader, LoaderCircle, LoaderPinwheel } from "lucide-react";
 import {
   BtnBold,
   BtnBulletList,
@@ -21,30 +21,32 @@ function RichTextEditor({ index, handleInput }) {
   const prompt =
     "Job Title: {jobTitle}, based on the job title generate a generic summary for my resume in 3-4 lines. Give only 1 answer not multiple.";
 
-  const [value, setValue] = useState();
+  const [experienceValue, setExperienceValue] = useState();
   const { resumeInfo, setResumeInfo } = useContext(ResumeInfoContext);
   const [isLoading, setIsLoading] = useState(false);
 
   const handleInputChange = (e) => {
+    console.log(e);
     handleInput(e);
     const { value } = e;
-    setValue(value);
+
+    setExperienceValue(value);
   };
 
   const GenerateWorkSummaryUsingAI = async (index) => {
     setIsLoading(true);
-    try {
-      const workSummary = await GenerateSummaryUsingAI(
-        resumeInfo?.experiences[index].title,
-        prompt,
-      );
-      const wSummary = { name: "workSummary", value: workSummary };
-      handleInputChange(wSummary);
-    } catch (error) {
-      console.log("ERROR: " + error);
-    } finally {
-      setIsLoading(false);
-    }
+    const workSummary = await GenerateSummaryUsingAI(
+      resumeInfo?.experiences[index].title,
+      prompt,
+    );
+    const wSummary = { name: "workSummary", value: workSummary };
+    handleInputChange(wSummary);
+    setIsLoading(false);
+  };
+
+  const loadingEffect = () => {
+    let dots = "";
+    
   };
 
   return (
@@ -68,23 +70,33 @@ function RichTextEditor({ index, handleInput }) {
         </Button>
       </div>
       <EditorProvider>
-        <Editor
-          name="workSummary"
-          value={isLoading ? <LoaderCircle className="animate-spin" /> : value}
-          onChange={(e) => handleInputChange(e.target)}
-        >
-          <Toolbar>
-            <BtnBold />
-            <BtnItalic />
-            <BtnUnderline />
-            <Separator />
-            <BtnNumberedList />
-            <BtnBulletList />
-            <Separator />
-            <BtnLink />
-            <Separator />
-          </Toolbar>
-        </Editor>
+        {isLoading ? (
+          <LoaderCircle className="animate-spin" />
+        ) : (
+          <Editor
+            name="workSummary"
+            value={
+              isLoading ? (
+                <LoaderPinwheel className="animate-spin" />
+              ) : (
+                experienceValue
+              )
+            }
+            onChange={(e) => handleInputChange(e.target)}
+          >
+            <Toolbar>
+              <BtnBold />
+              <BtnItalic />
+              <BtnUnderline />
+              <Separator />
+              <BtnNumberedList />
+              <BtnBulletList />
+              <Separator />
+              <BtnLink />
+              <Separator />
+            </Toolbar>
+          </Editor>
+        )}
       </EditorProvider>
     </div>
   );
