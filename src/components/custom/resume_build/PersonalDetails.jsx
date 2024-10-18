@@ -114,11 +114,7 @@ function PersonalDetails({ enableNext, isNextEnabled }) {
             </div>
           </div>
           <div className="mt-5 flex items-center justify-end">
-            <Button
-              disabled={isNextEnabled || isLoading}
-              onChange={handleInputChange}
-              type="submit"
-            >
+            <Button disabled={isNextEnabled || isLoading} type="submit">
               {isLoading ? <LoaderPinwheel className="animate-spin" /> : "Save"}
             </Button>
           </div>

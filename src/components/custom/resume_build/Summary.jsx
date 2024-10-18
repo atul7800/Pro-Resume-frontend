@@ -73,7 +73,7 @@ function Summary({ enableNext, isNextEnabled }) {
               setSummary(e.target.value);
               enableNext(false);
             }}
-            className="mt-3 max-h-[300px] min-h-[150px]"
+            className="mt-3 max-h-[300px] min-h-[150px] resize-none"
           />
 
           <div className="flex items-center justify-end">

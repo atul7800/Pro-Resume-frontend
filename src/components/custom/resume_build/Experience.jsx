@@ -6,7 +6,6 @@ import { Form, useParams } from "react-router-dom";
 import RichTextEditor from "../reusable/RichTextEditor";
 import GlobalApi from "@/service/GlobalApi";
 import { ResumeInfoContext } from "@/service/ResumeInfoContext";
-import { GenerateSummaryUsingAI } from "../../../service/CommonFunctions";
 
 function Experience({ enableNext, isNextEnabled }) {
   const [isLoading, setIsLoading] = useState(false);
@@ -62,7 +61,9 @@ function Experience({ enableNext, isNextEnabled }) {
     setIsLoading(true);
 
     const data = {
-      data: experienceList,
+      data: {
+        experiences: experienceList,
+      },
     };
 
     //Update on strapi
@@ -206,7 +207,6 @@ function Experience({ enableNext, isNextEnabled }) {
             </div>
 
             <Button disabled={isNextEnabled || isLoading} type="submit">
-              {/* Save */}
               {isLoading ? <LoaderPinwheel className="animate-spin" /> : "Save"}
             </Button>
           </div>

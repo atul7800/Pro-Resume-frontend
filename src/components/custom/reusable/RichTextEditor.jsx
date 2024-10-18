@@ -26,7 +26,6 @@ function RichTextEditor({ index, handleInput }) {
   const [isLoading, setIsLoading] = useState(false);
 
   const handleInputChange = (e) => {
-    console.log(e);
     handleInput(e);
     const { value } = e;
 
@@ -42,13 +41,6 @@ function RichTextEditor({ index, handleInput }) {
     const wSummary = { name: "workSummary", value: workSummary };
     handleInputChange(wSummary);
     setIsLoading(false);
-  };
-
-  const loadingEffect = () => {
-    let dots = "";
-    setInterval(() => {
-      dots += ".";
-    }, 500);
   };
 
   return (
@@ -76,6 +68,7 @@ function RichTextEditor({ index, handleInput }) {
           name="workSummary"
           value={experienceValue}
           onChange={(e) => handleInputChange(e.target)}
+          disabled={isLoading}
         >
           <Toolbar>
             <BtnBold />
