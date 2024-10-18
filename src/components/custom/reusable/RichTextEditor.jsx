@@ -46,7 +46,9 @@ function RichTextEditor({ index, handleInput }) {
 
   const loadingEffect = () => {
     let dots = "";
-    
+    setInterval(() => {
+      dots += ".";
+    }, 500);
   };
 
   return (
@@ -70,33 +72,24 @@ function RichTextEditor({ index, handleInput }) {
         </Button>
       </div>
       <EditorProvider>
-        {isLoading ? (
-          <LoaderCircle className="animate-spin" />
-        ) : (
-          <Editor
-            name="workSummary"
-            value={
-              isLoading ? (
-                <LoaderPinwheel className="animate-spin" />
-              ) : (
-                experienceValue
-              )
-            }
-            onChange={(e) => handleInputChange(e.target)}
-          >
-            <Toolbar>
-              <BtnBold />
-              <BtnItalic />
-              <BtnUnderline />
-              <Separator />
-              <BtnNumberedList />
-              <BtnBulletList />
-              <Separator />
-              <BtnLink />
-              <Separator />
-            </Toolbar>
-          </Editor>
-        )}
+        <Editor
+          name="workSummary"
+          value={experienceValue}
+          onChange={(e) => handleInputChange(e.target)}
+        >
+          <Toolbar>
+            <BtnBold />
+            <BtnItalic />
+            <BtnUnderline />
+            <Separator />
+            <BtnNumberedList />
+            <BtnBulletList />
+            <Separator />
+            <BtnLink />
+            <Separator />
+          </Toolbar>
+          {isLoading && <LoaderCircle className="animate-spin" />}
+        </Editor>
       </EditorProvider>
     </div>
   );
