@@ -61,7 +61,7 @@ function AddResume({ resumeList }) {
             <DialogTitle>Create new resume</DialogTitle>
             <DialogDescription>
               <input
-                className='my-2 h-[30px] w-full resize-none px-2 py-1'
+                className="my-2 h-[30px] w-full resize-none px-2 py-1"
                 type="text"
                 placeholder="Enter your resume title"
                 onChange={(e) => setResumeTitle(e.target.value)}
