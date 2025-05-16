@@ -100,6 +100,7 @@ function PersonalDetails({ enableNext, isNextEnabled }) {
             <div>
               <label className="text-sm">Phone</label>
               <Input
+                type="number"
                 defaultValue={resumeInfo?.attributes?.phone}
                 onChange={handleInputChange}
                 required
@@ -113,6 +114,7 @@ function PersonalDetails({ enableNext, isNextEnabled }) {
                 onChange={handleInputChange}
                 required
                 name="email"
+                type="email"
               />
             </div>
           </div>

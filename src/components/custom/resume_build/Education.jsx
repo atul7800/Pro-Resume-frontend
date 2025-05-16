@@ -113,6 +113,8 @@ function Education({ enableNext, isNextEnabled }) {
                   <Input
                     type="number"
                     name="cgpa"
+                    min="1"
+                    max="10"
                     onChange={(e) => handleChange(e, index)}
                     value={item?.cgpa ?? ""}
                   />
