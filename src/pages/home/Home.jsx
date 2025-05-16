@@ -11,9 +11,10 @@ function Home() {
             Build Your Resume <span className="text-primary">With AI</span>{" "}
           </h1>
           <p className="mb-8 text-lg font-normal text-gray-500 dark:text-gray-400 sm:px-16 lg:text-xl xl:px-48">
-            Effortlessly Craft a Standout Resume with Our AI-Powered Resume Builder
+            Effortlessly Craft a Standout Resume with Our AI-Powered Resume
+            Builder
           </p>
-          <div className="mb-8 flex flex-col space-y-4 sm:flex-row sm:justify-center sm:space-x-4 sm:space-y-0 lg:mb-16">
+          {/* <div className="mb-8 flex flex-col space-y-4 sm:flex-row sm:justify-center sm:space-x-4 sm:space-y-0 lg:mb-16">
             <a
               href="/dashboard"
               className="focus:ring-primary-300 dark:focus:ring-primary-900 inline-flex items-center justify-center rounded-lg bg-primary px-5 py-3 text-center text-base font-medium text-white hover:bg-primary focus:ring-4"
@@ -32,7 +33,7 @@ function Home() {
                 ></path>
               </svg>
             </a>
-          </div>
+          </div> */}
         </div>
       </div>
     </div>
