@@ -6,7 +6,6 @@ import { LoaderPinwheel } from "lucide-react";
 import React, { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import GlobalApi from "@/service/GlobalApi";
-//import { toast } from "sonner";
 
 function Education({ enableNext, isNextEnabled }) {
   const [loading, setLoading] = useState(false);
@@ -79,7 +78,7 @@ function Education({ enableNext, isNextEnabled }) {
         enableNext(true);
       },
       (error) => {
-        console.log("Education updated error : ", error);
+        console.log("Education section error : ", error);
         setLoading(false);
       },
     );

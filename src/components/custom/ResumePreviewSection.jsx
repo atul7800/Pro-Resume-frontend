@@ -23,7 +23,7 @@ function ResumePreviewSection() {
       {/* Educational details */}
       <EducationPreview />
       {/* Skills */}
-      <SkillsPreview resumeInfo={dummy} />
+      <SkillsPreview />
     </div>
   );
 }

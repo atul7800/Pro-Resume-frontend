@@ -6,11 +6,12 @@ import Summary from "./resume_build/Summary";
 import Experience from "./resume_build/Experience";
 import Abcd from "./resume_build/Abcd";
 import Education from "./resume_build/Education";
+import Skills from "./resume_build/Skills";
 
 function ResumeBuildSection() {
   const [activeFormIndex, setActiveFormIndex] = useState(1);
   const [isNextEnabled, setIsNextEnabled] = useState(false);
-  
+
   return (
     <div>
       <div className="flex items-center justify-between">
@@ -64,6 +65,11 @@ function ResumeBuildSection() {
         />
       ) : activeFormIndex == 4 ? (
         <Education
+          enableNext={(value) => setIsNextEnabled(value)}
+          isNextEnabled={isNextEnabled}
+        />
+      ) : activeFormIndex == 5 ? (
+        <Skills
           enableNext={(value) => setIsNextEnabled(value)}
           isNextEnabled={isNextEnabled}
         />

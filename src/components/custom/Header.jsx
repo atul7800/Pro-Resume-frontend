@@ -10,7 +10,7 @@ function Header() {
     <div className="flex items-center justify-between px-5 py-3 shadow-md print:hidden">
       <div className="logoContainer flex items-center justify-start gap-2">
         <img src="/logo.svg" alt="logo" width={45} height={45} />
-        <p className="text-3xl font-bold">Quick CV</p>
+        <p className="text-3xl font-bold">ProResume</p>
       </div>
       {isSignedIn ? (
         <div className="flex items-center justify-center gap-3">
