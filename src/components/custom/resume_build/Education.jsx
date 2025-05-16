@@ -87,8 +87,6 @@ function Education({ enableNext, isNextEnabled }) {
   return (
     <div className="mt-10 rounded-lg border-t-4 border-t-primary p-5 shadow-lg">
       <h2 className="text-lg font-bold">Education</h2>
-      <p>Add Your educational details</p>
-
       <div>
         {educationalList ? (
           educationalList.map((item, index) => (
@@ -137,14 +135,14 @@ function Education({ enableNext, isNextEnabled }) {
                     value={item?.endDate || ""}
                   />
                 </div>
-                <div className="col-span-2">
+                {/* <div className="col-span-2">
                   <label>Description</label>
                   <Textarea
                     name="description"
                     onChange={(e) => handleChange(e, index)}
                     value={item?.description || ""}
                   />
-                </div>
+                </div> */}
               </div>
             </div>
           ))

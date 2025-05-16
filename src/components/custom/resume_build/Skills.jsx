@@ -33,7 +33,6 @@ export default function Skills() {
           ["skill"]: skillsList,
         },
       });
-    console.log("SkillList updated : ", skillsList);
   }, [skillsList]);
 
   const handleChange = (index, name, value) => {
@@ -87,9 +86,8 @@ export default function Skills() {
   return (
     <div className="mt-10 rounded-lg border-t-4 border-t-primary p-5 shadow-lg">
       <h2 className="text-lg font-bold">Skills</h2>
-      <p>Add Your top professional key skills</p>
 
-      <div>
+      <div className="my-5">
         {skillsList?.length > 0 ? (
           skillsList.map((item, index) => (
             <div className="mb-2 flex justify-between rounded-lg border p-3">
