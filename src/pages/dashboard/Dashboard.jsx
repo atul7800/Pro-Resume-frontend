@@ -3,6 +3,7 @@ import ResumeCard from "@/components/custom/ResumeCard";
 import GlobalApi from "@/service/GlobalApi";
 import { useUser } from "@clerk/clerk-react";
 import React, { useEffect, useState } from "react";
+import { Download } from "lucide-react";
 
 function Dashboard() {
   const { user } = useUser();
@@ -15,8 +16,6 @@ function Dashboard() {
   const GetUserResumeList = () => {
     GlobalApi.GetUserResumes(user?.primaryEmailAddress?.emailAddress).then(
       (response) => {
-        // const receivedData = response.data.data;
-        // receivedData.forEach((data) => console.log(data.id));
         setResumeList(response.data.data);
       },
       (error) => {

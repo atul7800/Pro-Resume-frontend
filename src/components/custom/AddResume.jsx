@@ -41,6 +41,7 @@ function AddResume({ resumeList }) {
         }
       },
       (error) => {
+        console.log("Error:", error.response?.data || error.message);
         setLoading(false);
       },
     );

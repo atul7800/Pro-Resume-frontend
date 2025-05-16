@@ -11,6 +11,7 @@ function Experience({ enableNext, isNextEnabled }) {
   const [isLoading, setIsLoading] = useState(false);
   const params = useParams();
   const { resumeInfo, setResumeInfo } = useContext(ResumeInfoContext);
+  const resumeInfoData = resumeInfo?.attributes;
   const formField = {
     title: "",
     companyName: "",
@@ -21,11 +22,22 @@ function Experience({ enableNext, isNextEnabled }) {
     workSummary: "",
   };
 
-  const [experienceList, setExperienceList] = useState([formField]);
+  const [experienceList, setExperienceList] = useState(
+    resumeInfoData?.experiences?.length > 0
+      ? resumeInfoData?.experiences
+      : [formField],
+  );
 
   useEffect(() => {
+    // for local (context API)
     experienceList &&
-      setResumeInfo({ ...resumeInfo, ["experiences"]: experienceList });
+      setResumeInfo({
+        ...resumeInfo,
+        attributes: {
+          ...resumeInfo.attributes,
+          ["experiences"]: experienceList,
+        },
+      });
   }, [experienceList]);
 
   const handleRichTextChange = (index, nameAndValue) => {
@@ -58,27 +70,17 @@ function Experience({ enableNext, isNextEnabled }) {
 
   const onSave = async (e) => {
     e.preventDefault();
+
     setIsLoading(true);
 
     const data = {
       data: {
-        experiences: experienceList,
+        experiences: experienceList.map((exp) => ({
+          __component: "experiences.experiences",
+          ...exp,
+        })),
       },
     };
-
-    //Update on strapi
-    // try {
-    //   const result = await GlobalApi.UpdateResumeDetails(
-    //     params?.resumeId,
-    //     formData,
-    //   );
-    //   console.log(result);
-    //   enableNext(true);
-    // } catch (error) {
-    //   console.log(error);
-    // } finally {
-    //   setIsLoading(false);
-    // }
 
     GlobalApi.UpdateResumeDetails(params?.resumeId, data).then(
       (response) => {
@@ -101,6 +103,13 @@ function Experience({ enableNext, isNextEnabled }) {
     setExperienceList(experienceList.slice(0, -1));
   };
 
+  function convertToInputDateFormat(dateStr) {
+    if (!dateStr) return "";
+
+    const [day, month, year] = dateStr.split("-");
+    return `${year}-${month}-${day}`; // "2025-05-11"
+  }
+
   return (
     <div>
       <div className="h-ful mt-5 rounded-md border-t-4 border-t-primary p-5 pt-3 shadow-md">
@@ -115,6 +124,7 @@ function Experience({ enableNext, isNextEnabled }) {
                 <label className="text-sm">Title</label>
                 <Input
                   name="title"
+                  value={experience.title}
                   onChange={(e) => handleInputChange(index, e)}
                   placeholder="E.g. Software Engineer"
                   className="placeholder-gray-200"
@@ -126,6 +136,7 @@ function Experience({ enableNext, isNextEnabled }) {
                 <label className="text-sm">Company Name</label>
                 <Input
                   name="companyName"
+                  value={experience.companyName}
                   onChange={(e) => handleInputChange(index, e)}
                   placeholder="E.g. Xyz"
                   className="placeholder-gray-200"
@@ -137,6 +148,7 @@ function Experience({ enableNext, isNextEnabled }) {
                 <label className="text-sm">City</label>
                 <Input
                   name="city"
+                  value={experience.city}
                   onChange={(e) => handleInputChange(index, e)}
                   placeholder="E.g. Bengaluru"
                   className="placeholder-gray-200"
@@ -148,6 +160,7 @@ function Experience({ enableNext, isNextEnabled }) {
                 <label className="text-sm">State</label>
                 <Input
                   name="state"
+                  value={experience.state}
                   onChange={(e) => handleInputChange(index, e)}
                   placeholder="E.g. Karnataka"
                   className="placeholder-gray-200"
@@ -159,6 +172,7 @@ function Experience({ enableNext, isNextEnabled }) {
                 <label className="text-sm">Start Date</label>
                 <Input
                   name="startDate"
+                  value={convertToInputDateFormat(experience.startDate)}
                   onChange={(e) => handleInputChange(index, e)}
                   type="date"
                   className="placeholder-gray-200"
@@ -170,6 +184,7 @@ function Experience({ enableNext, isNextEnabled }) {
                 <label className="text-sm">End Date</label>
                 <Input
                   name="endDate"
+                  value={convertToInputDateFormat(experience.endDate)}
                   onChange={(e) => handleInputChange(index, e)}
                   type="date"
                   className="placeholder-gray-200"
@@ -181,6 +196,7 @@ function Experience({ enableNext, isNextEnabled }) {
                 <RichTextEditor
                   index={index}
                   handleInput={(e) => handleRichTextChange(index, e)}
+                  value={experience.workSummary}
                 />
               </div>
             </div>

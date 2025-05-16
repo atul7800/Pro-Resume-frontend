@@ -10,6 +10,7 @@ import Education from "./resume_build/Education";
 function ResumeBuildSection() {
   const [activeFormIndex, setActiveFormIndex] = useState(1);
   const [isNextEnabled, setIsNextEnabled] = useState(false);
+  
   return (
     <div>
       <div className="flex items-center justify-between">

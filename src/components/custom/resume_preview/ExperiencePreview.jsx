@@ -1,7 +1,10 @@
-import React from "react";
+import React, { useContext } from "react";
+import { ResumeInfoContext } from "@/service/ResumeInfoContext";
 import "./preview.css";
+import dummy from "@/data/dummy";
 
-function ExperiencePreview({ resumeInfo }) {
+function ExperiencePreview() {
+  const { resumeInfo, setResumeInfo } = useContext(ResumeInfoContext);
   return (
     <div className="mt-7">
       <h2
@@ -14,7 +17,7 @@ function ExperiencePreview({ resumeInfo }) {
         className="mt-1 border-[1px]"
         style={{ borderColor: resumeInfo?.themeColor }}
       />
-      {resumeInfo?.experiences.map((experience, index) => (
+      {resumeInfo?.attributes?.experiences.map((experience, index) => (
         <div key={index} className="experience-details mt-2">
           <h2 className="flex justify-between gap-2 text-sm font-bold">
             <span>{experience?.title}</span>
@@ -25,9 +28,11 @@ function ExperiencePreview({ resumeInfo }) {
             {experience?.city && experience?.state ? ", " : ""}
             {experience?.state}
             <span>
-              {experience?.startDate}{" "}
-              {experience?.startDate && experience?.endDate ? " to " : ""}
-              {experience?.currentlyWorking ? "Present" : experience?.endDate}
+              {experience?.startDate}
+              {" to "}
+              {experience?.endDate}
+              {/* {experience?.startDate && experience?.endDate ? " to " : ""} */}
+              {/* {experience?.currentlyWorking ? "Present" : experience?.endDate} */}
             </span>
           </h2>
           {/* <p className="mt-1 text-xs">{experience?.workSummary}</p> */}

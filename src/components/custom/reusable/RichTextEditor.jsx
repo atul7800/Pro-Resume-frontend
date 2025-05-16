@@ -17,18 +17,17 @@ import {
   EditorProvider,
 } from "react-simple-wysiwyg";
 
-function RichTextEditor({ index, handleInput }) {
+function RichTextEditor({ index, handleInput, value }) {
   const prompt =
     "Job Title: {jobTitle}, based on the job title generate a generic summary for my resume in 3-4 lines. Give only 1 answer not multiple.";
 
-  const [experienceValue, setExperienceValue] = useState();
+  const [experienceValue, setExperienceValue] = useState(value || "");
   const { resumeInfo, setResumeInfo } = useContext(ResumeInfoContext);
   const [isLoading, setIsLoading] = useState(false);
 
   const handleInputChange = (e) => {
-    handleInput(e);
     const { value } = e;
-
+    handleInput(e);
     setExperienceValue(value);
   };
 
@@ -38,7 +37,12 @@ function RichTextEditor({ index, handleInput }) {
       resumeInfo?.experiences[index].title,
       prompt,
     );
-    const wSummary = { name: "workSummary", value: workSummary };
+    const wSummary = {
+      name: "workSummary",
+      value: workSummary,
+    };
+
+    // setExperienceValue(wSummary);
     handleInputChange(wSummary);
     setIsLoading(false);
   };

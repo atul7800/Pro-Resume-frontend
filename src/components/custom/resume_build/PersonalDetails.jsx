@@ -41,7 +41,10 @@ function PersonalDetails({ enableNext, isNextEnabled }) {
     // for local (context API)
     setResumeInfo({
       ...resumeInfo,
-      [name]: value,
+      attributes: {
+        ...resumeInfo.attributes,
+        [name]: value,
+      },
     });
 
     // for strapi backend
@@ -61,7 +64,7 @@ function PersonalDetails({ enableNext, isNextEnabled }) {
             <div>
               <label className="text-sm">First Name</label>
               <Input
-                defaultValue={resumeInfo?.firstName}
+                defaultValue={resumeInfo?.attributes?.firstName}
                 onChange={handleInputChange}
                 name="firstName"
                 required
@@ -70,7 +73,7 @@ function PersonalDetails({ enableNext, isNextEnabled }) {
             <div>
               <label className="text-sm">Last Name</label>
               <Input
-                defaultValue={resumeInfo?.lastName}
+                defaultValue={resumeInfo?.attributes?.lastName}
                 onChange={handleInputChange}
                 name="lastName"
                 required
@@ -79,7 +82,7 @@ function PersonalDetails({ enableNext, isNextEnabled }) {
             <div className="col-span-2">
               <label className="text-sm">Job Title</label>
               <Input
-                defaultValue={resumeInfo?.jobTitle}
+                defaultValue={resumeInfo?.attributes?.jobTitle}
                 onChange={handleInputChange}
                 required
                 name="jobTitle"
@@ -88,7 +91,7 @@ function PersonalDetails({ enableNext, isNextEnabled }) {
             <div className="col-span-2">
               <label className="text-sm">Address</label>
               <Input
-                defaultValue={resumeInfo?.address}
+                defaultValue={resumeInfo?.attributes?.address}
                 onChange={handleInputChange}
                 required
                 name="address"
@@ -97,7 +100,7 @@ function PersonalDetails({ enableNext, isNextEnabled }) {
             <div>
               <label className="text-sm">Phone</label>
               <Input
-                defaultValue={resumeInfo?.phone}
+                defaultValue={resumeInfo?.attributes?.phone}
                 onChange={handleInputChange}
                 required
                 name="phone"
@@ -106,7 +109,7 @@ function PersonalDetails({ enableNext, isNextEnabled }) {
             <div>
               <label className="text-sm">Email</label>
               <Input
-                defaultValue={resumeInfo?.email}
+                defaultValue={resumeInfo?.attributes?.email}
                 onChange={handleInputChange}
                 required
                 name="email"

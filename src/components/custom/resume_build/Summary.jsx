@@ -12,19 +12,26 @@ function Summary({ enableNext, isNextEnabled }) {
   const [summary, setSummary] = useState("");
   const params = useParams();
   const [isLoading, setIsLoading] = useState(false);
-  const prompt = "Job Title: {jobTitle}, Give only 1 answer not multiple.";
+  const prompt =
+    "Job Title: {jobTitle}, Genrate a 35-40 words lengthy summary for the given job title to put in resume. Give only 1 answer not multiple.";
 
   useEffect(() => {
     summary &&
       setResumeInfo({
         ...resumeInfo,
-        summary: summary,
+        attributes: {
+          ...resumeInfo.attributes,
+          summary: summary,
+        },
       });
   }, [summary]);
 
   const GenerateSummaryUsingAI = async () => {
+    setIsLoading(true);
     const PROMPT = prompt.replace("{jobTitle}", resumeInfo?.jobTitle);
     const result = await geminiChatSession.sendMessage(PROMPT);
+    setSummary(result.response.candidates[0].content.parts[0].text);
+    setIsLoading(false);
   };
 
   const onSave = (e) => {
@@ -69,6 +76,7 @@ function Summary({ enableNext, isNextEnabled }) {
             </Button>
           </div>
           <Textarea
+            value={summary}
             onChange={(e) => {
               setSummary(e.target.value);
               enableNext(false);

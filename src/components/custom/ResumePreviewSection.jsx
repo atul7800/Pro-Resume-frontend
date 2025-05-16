@@ -5,6 +5,7 @@ import SummaryPreview from "./resume_preview/SummaryPreview";
 import ExperiencePreview from "./resume_preview/ExperiencePreview";
 import EducationPreview from "./resume_preview/EducationPreview";
 import SkillsPreview from "./resume_preview/SkillsPreview";
+import dummy from "@/data/dummy";
 
 function ResumePreviewSection() {
   const { resumeInfo, setResumeInfo } = useContext(ResumeInfoContext);
@@ -14,15 +15,15 @@ function ResumePreviewSection() {
       style={{ borderColor: resumeInfo?.themeColor }}
     >
       {/* Personal details */}
-      <PersonalDetailsPreview resumeInfo={resumeInfo} />
+      <PersonalDetailsPreview />
       {/* Summary */}
-      <SummaryPreview resumeInfo={resumeInfo} />
+      <SummaryPreview />
       {/* Professional experience */}
-      <ExperiencePreview resumeInfo={resumeInfo} />
+      <ExperiencePreview />
       {/* Educational details */}
-      <EducationPreview resumeInfo={resumeInfo} />
+      <EducationPreview />
       {/* Skills */}
-      <SkillsPreview resumeInfo={resumeInfo} />
+      <SkillsPreview resumeInfo={dummy} />
     </div>
   );
 }
