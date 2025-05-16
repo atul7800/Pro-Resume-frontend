@@ -22,23 +22,22 @@ function Education({ enableNext, isNextEnabled }) {
     description: "",
   };
 
-  const initialEducation =
+  const [educationalList, setEducationalList] = useState(
     resumeInfo?.attributes?.education?.length > 0
       ? resumeInfo.attributes.education
-      : [formField];
-
-  const [educationalList, setEducationalList] = useState(initialEducation);
+      : [formField],
+  );
 
   useEffect(() => {
-    const resumeEducation = resumeInfo?.attributes?.education;
-    // If resumeInfo has updated education and it's different from the current list
-    if (
-      resumeEducation &&
-      JSON.stringify(resumeEducation) !== JSON.stringify(educationalList)
-    ) {
-      setEducationalList(resumeEducation);
-    }
-  }, [resumeInfo]);
+    educationalList &&
+      setResumeInfo({
+        ...resumeInfo,
+        attributes: {
+          ...resumeInfo.attributes,
+          ["education"]: educationalList,
+        },
+      });
+  }, [educationalList]);
 
   // const handleChange = (event, index) => {
   //   const newEntries = educationalList.slice();
@@ -85,16 +84,6 @@ function Education({ enableNext, isNextEnabled }) {
       },
     );
   };
-
-  useEffect(() => {
-    setResumeInfo({
-      ...resumeInfo,
-      attributes: {
-        ...resumeInfo.attributes,
-        education: educationalList,
-      },
-    });
-  }, [educationalList]);
 
   return (
     <div className="mt-10 rounded-lg border-t-4 border-t-primary p-5 shadow-lg">
