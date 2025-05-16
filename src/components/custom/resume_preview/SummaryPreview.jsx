@@ -6,7 +6,9 @@ function SummaryPreview() {
   const resumeInfoData = resumeInfo?.attributes;
   return (
     <div>
-      <p className="text-xs">{resumeInfoData?.summary}</p>
+      <p style={{ fontSize: "16px", textAlign: "justify" }} className="text-sm">
+        {resumeInfoData?.summary}
+      </p>
     </div>
   );
 }

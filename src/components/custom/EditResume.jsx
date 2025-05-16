@@ -18,7 +18,6 @@ function EditResume() {
 
   const getResumeData = () => {
     GlobalApi.GetResumeById(resumeId).then((res) => {
-      console.log("Fetched resume data : ", res.data.data);
       setResumeInfo(res.data.data);
     });
   };

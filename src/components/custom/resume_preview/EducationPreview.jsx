@@ -18,13 +18,16 @@ function EducationPreview() {
       {resumeInfo?.attributes?.education?.length > 0 ? (
         resumeInfo?.attributes?.education.map((education, index) => (
           <div key={index} className="mt-2">
-            <h2 className="flex justify-between">
+            <h2
+              style={{ color: "#707070" }}
+              className="flex justify-between text-sm font-medium italic"
+            >
               {education?.universityName}
               <span>
-                {education?.startDate} - {education?.endDate}
+                {education?.startDate} to {education?.endDate}
               </span>
             </h2>
-            <h2 className="flex justify-between text-sm font-bold">
+            <h2 className="flex justify-between text-lg font-bold">
               {education?.degree}
               <span>
                 {education?.cgpa} {"CGPA"}

@@ -30,11 +30,11 @@ export default function DownloadResume() {
           <h2 className="text-center text-2xl font-medium">
             Your AI-Generated Resume is Ready!{" "}
           </h2>
-          <p className="text-center text-gray-400">
+          <p style={{ fontSize: "16px" }} className="text-center text-gray-500">
             You can now download your resume or share your unique resume link
             with friends, family, or recruiters.{" "}
           </p>
-          <div className="my-10 flex justify-between px-44">
+          <div className="my-10 flex justify-center px-44">
             <Button onClick={handleDownload}>Download</Button>
 
             {/* <RWebShare
