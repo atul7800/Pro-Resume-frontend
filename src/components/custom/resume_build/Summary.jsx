@@ -9,7 +9,7 @@ import { geminiChatSession } from "@/service/Gemini";
 
 function Summary({ enableNext, isNextEnabled }) {
   const { resumeInfo, setResumeInfo } = useContext(ResumeInfoContext);
-  const [summary, setSummary] = useState("");
+  const [summary, setSummary] = useState(resumeInfo?.attributes?.summary || "");
   const params = useParams();
   const [isLoading, setIsLoading] = useState(false);
   const prompt =

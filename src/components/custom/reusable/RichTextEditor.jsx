@@ -19,7 +19,7 @@ import {
 
 function RichTextEditor({ index, handleInput, value }) {
   const prompt =
-    "Job Title: {jobTitle}, based on the job title generate a generic summary for my resume in 3-4 lines. Give only 1 answer not multiple.";
+    "Job Title: {jobTitle}, based on the job title generate a generic summary for my resume, it should have max 250 characters. Give only 1 answer not multiple.";
 
   const [experienceValue, setExperienceValue] = useState(value || "");
   const { resumeInfo, setResumeInfo } = useContext(ResumeInfoContext);
@@ -34,15 +34,15 @@ function RichTextEditor({ index, handleInput, value }) {
   const GenerateWorkSummaryUsingAI = async (index) => {
     setIsLoading(true);
     const workSummary = await GenerateSummaryUsingAI(
-      resumeInfo?.experiences[index].title,
+      resumeInfo?.attributes?.experiences[index].title,
       prompt,
     );
+
     const wSummary = {
       name: "workSummary",
       value: workSummary,
     };
 
-    // setExperienceValue(wSummary);
     handleInputChange(wSummary);
     setIsLoading(false);
   };
@@ -50,7 +50,10 @@ function RichTextEditor({ index, handleInput, value }) {
   return (
     <div>
       <div className="mb-3 flex items-center justify-between">
-        <label className="text-sm">Work Summary</label>
+        <label className="text-sm">
+          Work Summary{" "}
+          <span className="text-xs font-thin">(max 250 chars)</span>
+        </label>
         <Button
           onClick={() => GenerateWorkSummaryUsingAI(index)}
           type="button"

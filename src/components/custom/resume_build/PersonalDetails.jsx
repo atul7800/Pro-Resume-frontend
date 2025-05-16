@@ -19,7 +19,7 @@ function PersonalDetails({ enableNext, isNextEnabled }) {
 
     // updating on strapi backend
     const data = {
-      data: formData,
+      data: formData || resumeInfo?.attributes,
     };
 
     GlobalApi.UpdateResumeDetails(params?.resumeId, data).then(
