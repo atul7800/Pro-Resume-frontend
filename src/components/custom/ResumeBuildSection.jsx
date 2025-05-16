@@ -7,10 +7,13 @@ import Experience from "./resume_build/Experience";
 import Abcd from "./resume_build/Abcd";
 import Education from "./resume_build/Education";
 import Skills from "./resume_build/Skills";
+import Dashboard from "@/pages/dashboard/Dashboard";
+import { useNavigate } from "react-router-dom";
 
 function ResumeBuildSection() {
   const [activeFormIndex, setActiveFormIndex] = useState(1);
   const [isNextEnabled, setIsNextEnabled] = useState(false);
+  const navigate = useNavigate();
 
   return (
     <div>
@@ -73,6 +76,8 @@ function ResumeBuildSection() {
           enableNext={(value) => setIsNextEnabled(value)}
           isNextEnabled={isNextEnabled}
         />
+      ) : activeFormIndex == 6 ? (
+        navigate("/dashboard")
       ) : null}
 
       {/* {activeFormIndex == 1 ? (

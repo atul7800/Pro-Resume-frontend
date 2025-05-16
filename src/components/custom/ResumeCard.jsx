@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 function ResumeCard({ resume, index }) {
   return (
-    <div className="flex h-[280px] cursor-pointer flex-col justify-center rounded-lg border border-primary bg-gradient-to-b from-pink-100 via-purple-200 to-blue-200 p-2 shadow-primary transition-all hover:scale-105 hover:shadow-md">
+    <div className="flex h-[280px] cursor-pointer flex-col justify-center rounded-lg bg-gradient-to-b from-pink-100 via-purple-200 to-blue-200 p-2 shadow-primary transition-all hover:scale-105 hover:shadow-md">
       <div className="flex justify-end">
         <Link to={"/dashboard/resume/" + resume.id + "/resume-download"}>
           <Download />
@@ -15,7 +15,7 @@ function ResumeCard({ resume, index }) {
         to={"/dashboard/resume/" + resume.id + "/edit"}
       >
         <div className="flex flex-col items-center justify-center gap-6">
-          <img src="../../../public/cv.png" width={80} height={80} />
+          <img src="/cv.png" width={80} height={80} />
           <p className="text-lg font-semibold">
             {resume.attributes.resumeTitle}
           </p>

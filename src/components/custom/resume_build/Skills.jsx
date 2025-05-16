@@ -8,7 +8,7 @@ import { useParams } from "react-router-dom";
 import { Rating } from "@smastrom/react-rating";
 import "@smastrom/react-rating/style.css";
 
-export default function Skills() {
+export default function Skills({ enableNext, isNextEnabled }) {
   const { resumeId } = useParams();
   const [loading, setLoading] = useState(false);
   const { resumeInfo, setResumeInfo } = useContext(ResumeInfoContext);
@@ -36,6 +36,7 @@ export default function Skills() {
   }, [skillsList]);
 
   const handleChange = (index, name, value) => {
+    enableNext(false);
     const newEntries = [...skillsList];
 
     newEntries[index][name] = value;
@@ -129,7 +130,7 @@ export default function Skills() {
             - Remove
           </Button>
         </div>
-        <Button disabled={loading} onClick={() => onSave()}>
+        <Button disabled={isNextEnabled || loading} onClick={() => onSave()}>
           {loading ? <LoaderPinwheel className="animate-spin" /> : "Save"}
         </Button>
       </div>

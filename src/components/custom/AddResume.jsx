@@ -51,9 +51,12 @@ function AddResume({ resumeList }) {
     <div>
       <div
         onClick={() => setIsDialogOpen(true)}
-        className="flex h-[280px] cursor-pointer items-center justify-center rounded-lg border border-dashed bg-secondary p-10 transition-all hover:scale-105 hover:shadow-md"
+        className="flex h-[280px] cursor-pointer items-center justify-center rounded-lg bg-secondary p-10 transition-all hover:scale-105 hover:shadow-md"
       >
-        <PlusSquare />
+        <p className="flex flex-col items-center justify-center gap-5 text-lg font-semibold">
+          <PlusSquare />
+          <span className="text-center">Create New Resume</span>
+        </p>
       </div>
       {/* Dialog popup */}
       <Dialog open={isDialogOpen}>

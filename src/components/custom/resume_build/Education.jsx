@@ -46,6 +46,7 @@ function Education({ enableNext, isNextEnabled }) {
   // };
 
   const handleChange = (event, index) => {
+    enableNext(false);
     const newEntries = [...educationalList];
     const { name, value } = event.target;
 
@@ -171,7 +172,7 @@ function Education({ enableNext, isNextEnabled }) {
             - Remove
           </Button>
         </div>
-        <Button disabled={loading} onClick={() => onSave()}>
+        <Button disabled={isNextEnabled || loading} onClick={() => onSave()}>
           {loading ? <LoaderPinwheel className="animate-spin" /> : "Save"}
         </Button>
       </div>
